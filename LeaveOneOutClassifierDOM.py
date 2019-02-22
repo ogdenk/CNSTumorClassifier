@@ -6,12 +6,12 @@ from keras import models
 from keras import layers
 import matplotlib.pyplot as plt
 
-slices=4  #slices set as 1 for seizure study
+slices=1  #slices set as 1 for seizure study
 
 
 rootDir = 'x:/'
 #filename = 'rawavg_nogad1.5.csv'
-filename = 'dataSetEmb1.30.19.csv'
+filename = 'dataSetEmb2.4.19noDataAugFeatureAvg.csv'
 datafile = os.path.join(rootDir, filename)
 pre_data = pd.read_csv(datafile,index_col='Patient Number')
 
@@ -69,7 +69,7 @@ for i in range(int(number_of_patients)):
 
     model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 
-    history = model.fit(train_data,train_labels, epochs=20, batch_size=256, validation_data=(test_data, test_labels))
+    history = model.fit(train_data,train_labels, epochs=20, batch_size=6, validation_data=(test_data, test_labels))
     history_dict = history.history
     loss_values = history_dict['loss']
     val_loss_values = history_dict['val_loss']
