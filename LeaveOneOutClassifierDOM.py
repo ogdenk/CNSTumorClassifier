@@ -69,7 +69,7 @@ for i in range(int(number_of_patients)):
 
     model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 
-    history = model.fit(train_data,train_labels, epochs=20, batch_size=8, validation_data=(test_data, test_labels))
+    history = model.fit(train_data,train_labels, epochs=20, batch_size=256, validation_data=(test_data, test_labels))
     history_dict = history.history
     loss_values = history_dict['loss']
     val_loss_values = history_dict['val_loss']
