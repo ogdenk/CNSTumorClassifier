@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 slices=4  #slices set as 1 for seizure study
 
 
-rootDir = 'E:/AllGoodFiles/'
+rootDir = 'x:/'
 #filename = 'rawavg_nogad1.5.csv'
-filename = 'testfile.csv'
+filename = 'dataSetEmb1.30.19.csv'
 datafile = os.path.join(rootDir, filename)
 pre_data = pd.read_csv(datafile,index_col='Patient Number')
 
