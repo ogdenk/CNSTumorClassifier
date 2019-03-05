@@ -9,17 +9,17 @@ import matplotlib.pyplot as plt
 slices=4  #slices set as 1 for seizure study
 
 
-rootDir = 'E:/AllGoodFiles/'
+rootDir = 'X:/'
 #filename = 'rawavg_nogad1.5.csv'
-filename = 'testfile.csv'
+filename = 'dataSetEmb2.4.19noDataAug.csv'
 datafile = os.path.join(rootDir, filename)
-pre_data = pd.read_csv(datafile,index_col='Patient Number')
+pre_data = pd.read_csv(datafile,index_col='Patient_Number')
 
 
 
 total_rows=len(pre_data.axes[0])
 total_columns=len(pre_data.axes[1])
-len_group = slices**slices
+len_group = 4#slices**slices
 number_of_patients = total_rows/len_group
 trainFrac = (number_of_patients-1)/number_of_patients #Training fraction all but one patient
 valFrac = 1-trainFrac #Validation one patient
@@ -45,8 +45,8 @@ for i in range(int(number_of_patients)):
     train_data_size = len(train_data_df)
     test_data_size = len(test_data_df)
 
-    train_labels = train_data_df['Tumor Type'].as_matrix().astype('float32')
-    test_labels = test_data_df['Tumor Type'].as_matrix().astype('float32')
+    train_labels = train_data_df['Tumor_Type'].as_matrix().astype('float32')
+    test_labels = test_data_df['Tumor_Type'].as_matrix().astype('float32')
     #train_labels = train_data_df['SzBd400'].as_matrix().astype('float32')
     #test_labels = test_data_df['SzBd400'].as_matrix().astype('float32')
 
@@ -69,7 +69,7 @@ for i in range(int(number_of_patients)):
 
     model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 
-    history = model.fit(train_data,train_labels, epochs=20, batch_size=8, validation_data=(test_data, test_labels))
+    history = model.fit(train_data,train_labels, epochs=20, batch_size=16, validation_data=(test_data, test_labels))
     history_dict = history.history
     loss_values = history_dict['loss']
     val_loss_values = history_dict['val_loss']
@@ -88,10 +88,26 @@ for i in range(int(number_of_patients)):
     lastPatient_cycle_data = pre_data[total_rows - 256:]
     first99percent_cycle_data = pre_data[:total_rows - 256]
     pre_data = pd.concat([lastPatient_cycle_data, first99percent_cycle_data])
+
 print(np.mean(total_Val_Acc))
 print(np.mean(total_Val_Loss))
 print(total_Val_Acc)
 print(total_Val_Loss)
+
+plt.plot(np.arange(len(total_Val_Acc)), total_Val_Acc, 'bo', label='Validation Acc')
+plt.title('Validation Accuracy All Patients')
+plt.xlabel('Patient')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.show()
+
+plt.plot(np.arange(len(total_Val_Loss)), total_Val_Loss, 'bo', label='Validation Loss')
+plt.title('Loss All Patients')
+plt.xlabel('Patient')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
+
 plt.plot(epochs, acc_values, 'bo', label='Training acc')
 plt.plot(epochs, val_acc_values, 'b', label='Validation acc')
 plt.title('Training and validation accuracy')

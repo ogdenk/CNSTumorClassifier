@@ -5,7 +5,7 @@
 import pandas as pd
 import numpy as np
 import os
-pathName = "E:/AllGoodFiles/"
+pathName = "X:/"
 
 # make sure that the Drobo is mounted and findable
 # if the path does not exist the program will end early and give an error message
