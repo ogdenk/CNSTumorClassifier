@@ -6,15 +6,15 @@ from keras import models
 from keras import layers
 import matplotlib.pyplot as plt
 
-slices = 2  #slices set as 1 for seizure study.  use 2 for no data augmentation tumors. 4 for data augmentation tumors
+slices = 4  #slices set as 1 for seizure study.  use 2 for no data augmentation tumors. 4 for data augmentation tumors
 
-rootDir = 'x:/'
+rootDir = 'c:/temp'
 #filename = 'rawavg_nogad1.5.csv'
 #filename = 'dataSetGBM2noADC.csv'
 #filename = 'dataSetEmb2.4.19noDataAugFeatureAvg.csv' # 1 x 4
-filename = 'dataSetEmb2.4.19noDataAug.csv' # 1 x 16,
+#filename = 'dataSetEmb2.4.19noDataAug.csv' # 1 x 16,
 #filename = 'dataSetEmb2.4.19noDataAugFeatureAvg.csv' # 1 x 16
-#filename='dataSetEmb2.4.19noDataAug.csv'
+filename='dataSetEmb1.30.19.csv'
 #filename='dataSetEmb2.12.19noDataAug1.csv'
 #filename = 'dataSetEmb1.30.19.csv' # Fully augmented
 
@@ -74,7 +74,7 @@ for i in range(int(number_of_patients)):
     model.add(layers.Dense(1, activation='sigmoid'))
     model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 
-    history = model.fit(train_data,train_labels, epochs=40, batch_size=8, validation_data=(test_data, test_labels))
+    history = model.fit(train_data,train_labels, epochs=20, batch_size=2000, validation_data=(test_data, test_labels))
     history_dict = history.history
     loss_values = history_dict['loss']
     val_loss_values = history_dict['val_loss']
