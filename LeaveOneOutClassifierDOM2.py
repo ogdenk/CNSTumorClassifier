@@ -51,13 +51,13 @@ for i in range(int(number_of_patients)):
     train_data_size = len(train_data_df)
     test_data_size = len(test_data_df)
 
-    train_labels = train_data_df['Tumor_Type'].as_matrix().astype('float32')
-    test_labels = test_data_df['Tumor_Type'].as_matrix().astype('float32')
+    train_labels = train_data_df['Tumor_Type'].to_numpy().astype('float32')
+    test_labels = test_data_df['Tumor_Type'].to_numpy().astype('float32')
     #train_labels = train_data_df['SzBd400'].as_matrix().astype('float32')
     #test_labels = test_data_df['SzBd400'].as_matrix().astype('float32')
 
-    train_data = train_data_df.as_matrix()[:,3:]
-    test_data = test_data_df.as_matrix()[:,3:]
+    train_data = train_data_df.to_numpy()[:,3:]
+    test_data = test_data_df.to_numpy()[:,3:]
 
 
     means = train_data.mean(axis=0)
@@ -81,9 +81,8 @@ for i in range(int(number_of_patients)):
     epochs = range(1, len(loss_values) + 1)
 
 
-    acc_values = history_dict['acc']
-    val_acc_values = history_dict['val_acc']
-    acc_values = history_dict['acc']
+    acc_values = history_dict['accuracy']
+    val_acc_values = history_dict['val_accuracy']
     last_val_acc_value = val_acc_values[-1]
     last_val_loss_value = val_loss_values[-1]
     print(test_data_df.index[0])

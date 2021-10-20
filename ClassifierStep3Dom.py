@@ -10,7 +10,7 @@ slices=4  #slices set as 1 for seizure study
 trainFrac = 0.8065 #Training fraction (includes validation)
 valFrac = 0.1935 #Fraction of training data used for validation
 
-rootDir = 'E:/AllGoodFiles/'
+rootDir = 'c:/temp/'
 #filename = 'rawavg_nogad1.5.csv'
 filename = 'testfile.csv'
 datafile = os.path.join(rootDir, filename)
